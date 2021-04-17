@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout
 
 
 class MyApp(QWidget):
@@ -9,13 +9,31 @@ class MyApp(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle('My First Application')
-        self.move(300, 300)
-        self.resize(400, 200)
+        btn1 = QPushButton('&Button123', self)
+        btn1.setCheckable(True)
+        btn1.toggle()
+
+        btn2 = QPushButton(self)
+        btn2.setText('Button234')
+
+        btn3 = QPushButton('Button3', self)
+        btn3.setEnabled(False)
+
+        btn4 = QPushButton('B4', self)
+
+        vbox = QVBoxLayout()
+        vbox.addWidget(btn1)
+        vbox.addWidget(btn2)
+        vbox.addWidget(btn3)
+        vbox.addWidget(btn4)
+
+        self.setLayout(vbox)
+        self.setWindowTitle('QPushButton')
+        self.setGeometry(300, 300, 30, 200)
         self.show()
 
 
 if __name__ == '__main__':
-   app = QApplication(sys.argv)
-   ex = MyApp()
-   sys.exit(app.exec_())
+    app = QApplication(sys.argv)
+    ex = MyApp()
+    sys.exit(app.exec_())
