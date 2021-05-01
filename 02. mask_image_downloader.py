@@ -1,4 +1,8 @@
 # 마스크 이미지 다운로드
+from urllib.request import Request, urlopen
+import json
+import os
+
 
 def image_download(url, filepath):
     request = Request(url)
