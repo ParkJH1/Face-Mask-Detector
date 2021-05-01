@@ -16,7 +16,6 @@ for face_location in face_locations:
     right = face_location[1]
     bottom = face_location[2]
     left = face_location[3]
-    draw.rectangle(((left, top), (right, bottom)), outline=(255, 255, 0), width=6)
-    draw.rectangle(((left, top), (right, bottom)), outline=(255, 0, 0), width=1)
+    draw.rectangle(((left, top), (right, bottom)), outline=(255, 255, 0), width=4)
 
 face_image.show()
