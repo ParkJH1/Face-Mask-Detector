@@ -14,9 +14,8 @@ draw = ImageDraw.Draw(face_landmark_image)
 
 for face_landmark in face_landmarks:
     for feature_name, points in face_landmark.items():
+        print(feature_name, points)
         for point in points:
             draw.point(point)
-
-# draw.point((10, 10))
 
 face_landmark_image.show()
