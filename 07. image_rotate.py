@@ -6,6 +6,6 @@ mask_image_path = 'data/mask.png'
 
 mask_image = Image.open(mask_image_path)
 
-angle = 100
-mask_image_rotate = mask_image.rotate(angle, expand=True)
+angle = 30
+mask_image_rotate = mask_image.rotate(angle)
 mask_image_rotate.show()
