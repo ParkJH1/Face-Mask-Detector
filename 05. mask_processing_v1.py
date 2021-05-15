@@ -1,4 +1,4 @@
-# 얼굴 인식
+# 얼굴 영역 정보를 이용한 마스크 합성
 
 import face_recognition
 from PIL import Image, ImageDraw
