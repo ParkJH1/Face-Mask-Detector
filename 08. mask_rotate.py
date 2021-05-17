@@ -26,7 +26,7 @@ for face_landmark in face_landmarks:
     mask_degree = 90 - face_degree
 
     mask_image = mask_image.resize((80, 50))
-    mask_image = mask_image.rotate(mask_degree)
+    mask_image = mask_image.rotate(-90, expand=True)
 
     face_landmark_image.paste(mask_image, (0, 0), mask_image)
 
