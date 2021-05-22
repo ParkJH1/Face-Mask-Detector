@@ -115,6 +115,11 @@ def mask_processing(face_image_file_name):
         mask_height = int(distance_point_to_point(face_landmark['nose_bridge'][1], face_landmark['chin'][8]))
 
         # 마스크 좌/우 분할
+        mask_left_image = mask_image.crop((0, 0, mask_image.width // 2, mask_image.height))
+        mask_right_image = mask_image.crop((mask_image.width // 2, 0, mask_image.width, mask_image.height))
+
+        mask_left_image.show()
+        mask_right_image.show()
 
         # 왼쪽 얼굴 너비 계산
 
@@ -142,4 +147,4 @@ def mask_processing(face_image_file_name):
 # 데이터 생성
 
 if __name__ == '__main__':
-    download_image('mask')
+    mask_processing('0.jpg')
