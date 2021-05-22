@@ -97,6 +97,20 @@ def distance_point_to_line(point, line_point1, line_point2):
     return np.abs(a * point[0] + b * point[1] + c) / np.sqrt(a ** 2 + b ** 2)
 
 
+def rotate_point(origin, point, angle):
+    """
+    Rotate a point counterclockwise by a given angle around a given origin.
+
+    The angle should be given in radians.
+    """
+    ox, oy = origin
+    px, py = point
+
+    qx = ox + np.cos(angle) * (px - ox) - np.sin(angle) * (py - oy)
+    qy = oy + np.sin(angle) * (px - ox) + np.cos(angle) * (py - oy)
+    return qx, qy
+
+
 # 마스크 합성
 def mask_processing(face_image_file_name):
     # 이미지 경로 생성
@@ -145,16 +159,33 @@ def mask_processing(face_image_file_name):
         mask_image.paste(mask_left_image, (0, 0), mask_left_image)
         mask_image.paste(mask_right_image, (mask_left_width, 0), mask_right_image)
 
-        mask_image.show()
-
         # 얼굴 회전 각도 계산
+        dx = face_landmark['chin'][8][0] - face_landmark['nose_bridge'][0][0]
+        dy = face_landmark['chin'][8][1] - face_landmark['nose_bridge'][0][1]
+
+        face_radian = np.arctan2(dy, dx)
+        face_degree = np.rad2deg(face_radian)
 
         # 마스크 회전
+        mask_degree = (90 - face_degree + 360) % 360
+        mask_image = mask_image.rotate(mask_degree, expand=True)
 
         # 마스크 위치 계산
+        mask_radian = np.deg2rad(-mask_degree)
+
+        center_x = (face_landmark['nose_bridge'][1][0] + face_landmark['chin'][8][0]) // 2
+        center_y = (face_landmark['nose_bridge'][1][1] + face_landmark['chin'][8][1]) // 2
+
+        p1 = rotate_point((center_x, center_y), (center_x - mask_left_width, center_y - mask_height // 2), mask_radian)
+        p2 = rotate_point((center_x, center_y), (center_x - mask_left_width, center_y + mask_height // 2), mask_radian)
+        p3 = rotate_point((center_x, center_y), (center_x + mask_right_width, center_y - mask_height // 2), mask_radian)
+        p4 = rotate_point((center_x, center_y), (center_x + mask_right_width, center_y + mask_height // 2), mask_radian)
+
+        box_x = int(min(p1[0], p2[0], p3[0], p4[0]))
+        box_y = int(min(p1[1], p2[1], p3[1], p4[1]))
 
         # 마스크 합성(붙여넣기)
-
+        face_image.paste(mask_image, (box_x, box_y), mask_image)
 
     # 결과 이미지 반환
     return face_image, face_count
@@ -163,4 +194,4 @@ def mask_processing(face_image_file_name):
 # 데이터 생성
 
 if __name__ == '__main__':
-    mask_processing('106.jpg')
+    mask_processing('augmented_image_37.jpg')[0].show()
