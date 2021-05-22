@@ -17,4 +17,4 @@ def image_download(url, filepath):
     # url로 부터 filepath에 다운로드 완료
 
 mask_url = 'https://github.com/prajnasb/observations/raw/master/mask_classifier/Data_Generator/images/blue-mask.png'
-image_download(mask_url, 'data/mask.png')
+image_download(mask_url, '../data/mask.png')

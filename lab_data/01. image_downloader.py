@@ -22,10 +22,10 @@ for i in range(len(contents)):
     response = urlopen(request)
     image_data = response.read()
 
-    if not os.path.exists('data'):
-        os.mkdir('data')
-    if not os.path.exists('data/without_mask'):
-        os.mkdir('data/without_mask')
+    if not os.path.exists('../data'):
+        os.mkdir('../data')
+    if not os.path.exists('../data/without_mask'):
+        os.mkdir('../data/without_mask')
 
     image_file = open('data/without_mask/' + content['name'], 'wb')
     image_file.write(image_data)
