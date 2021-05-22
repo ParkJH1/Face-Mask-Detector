@@ -35,9 +35,47 @@ def download_image(kind):
             print('without_mask 이미지 다운로드 중(' + str(i + 1) + '/' + str(len(contents)) + '): ' + content['name'])
         print('without_mask 이미지 다운로드 완료')
     elif kind == 'with_mask':
-        pass
+        api_url = 'https://api.github.com/repos/prajnasb/observations/contents/experiements/data/with_mask?ref=master'
+        hds = {'User-Agent': 'Mozilla/5.0'}
+
+        request = Request(api_url, headers=hds)
+        response = urlopen(request)
+        directory_bytes = response.read()
+        directory_str = directory_bytes.decode('utf-8')
+
+        contents = json.loads(directory_str)
+
+        for i in range(len(contents)):
+            content = contents[i]
+
+            request = Request(content['download_url'])
+            response = urlopen(request)
+            image_data = response.read()
+
+            if not os.path.exists('data'):
+                os.mkdir('data')
+            if not os.path.exists('data/with_mask'):
+                os.mkdir('data/with_mask')
+
+            image_file = open('data/with_mask/' + content['name'], 'wb')
+            image_file.write(image_data)
+            image_file.close()
+            print('with_mask 이미지 다운로드 중(' + str(i + 1) + '/' + str(len(contents)) + '): ' + content['name'])
+        print('with_mask 이미지 다운로드 완료')
     elif kind == 'mask':
-        pass
+        mask_image_download_url = 'https://github.com/prajnasb/observations/raw/master/mask_classifier/Data_Generator/images/blue-mask.png'
+
+        request = Request(mask_image_download_url)
+        response = urlopen(request)
+        image_data = response.read()
+
+        if not os.path.exists('data'):
+            os.mkdir('data')
+
+        image_file = open('data/mask.png', 'wb')
+        image_file.write(image_data)
+        image_file.close()
+        print('mask 이미지 다운로드 완료')
 
 
 # 마스크 합성
@@ -45,4 +83,4 @@ def download_image(kind):
 # 데이터 생성
 
 if __name__ == '__main__':
-    download_image('without_mask')
+    download_image('mask')
