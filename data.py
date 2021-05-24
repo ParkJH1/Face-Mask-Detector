@@ -187,11 +187,36 @@ def mask_processing(face_image_file_name):
         # 마스크 합성(붙여넣기)
         face_image.paste(mask_image, (box_x, box_y), mask_image)
 
+        face_count += 1
+
     # 결과 이미지 반환
     return face_image, face_count
 
 
 # 데이터 생성
+def generate_data():
+    face_image_base_path = 'data/without_mask/'
+    save_path = 'data/with_mask/'
+
+    face_image_file_names = os.listdir(face_image_base_path)
+
+    for i in range(len(face_image_file_names)):
+        face_image_file_name = face_image_file_names[i]
+
+        face_image, face_count = mask_processing(face_image_file_name)
+
+        if face_count == 0:
+            os.remove(face_image_base_path + face_image_file_name)
+            print('얼굴 인식 실패(' + str(i + 1) + '/' + str(len(face_image_file_names)) + '): ' + face_image_file_name)
+        else:
+            if not os.path.exists(save_path):
+                os.mkdir(save_path)
+
+            face_image.save(save_path + face_image_file_name)
+            print('마스크 합성 중(' + str(i + 1) + '/' + str(len(face_image_file_names)) + '): ' + face_image_file_name)
+
+    print('마스크 합성 완료')
+
 
 if __name__ == '__main__':
-    mask_processing('augmented_image_37.jpg')[0].show()
+    generate_data()
