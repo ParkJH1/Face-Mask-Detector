@@ -197,6 +197,7 @@ def mask_processing(face_image_file_name):
 # 데이터 생성
 def generate_data():
     face_image_base_path = 'data/without_mask/'
+
     save_path = 'data/with_mask/'
 
     face_image_file_names = os.listdir(face_image_base_path)
@@ -219,4 +220,5 @@ def generate_data():
 
 
 if __name__ == '__main__':
+    # download_image('without_mask')
     generate_data()
