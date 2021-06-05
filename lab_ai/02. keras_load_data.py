@@ -20,6 +20,17 @@ valid_dataset = tf.keras.preprocessing.image_dataset_from_directory(
     batch_size=16
 )
 
+resize_and_crop = tf.keras.Sequential([
+    tf.keras.layers.experimental.preprocessing.RandomCrop(height=224, width=224),
+    tf.keras.layers.experimental.preprocessing.Rescaling(1./255)
+])
+
+rc_train_dataset = train_dataset.map(lambda x, y: (resize_and_crop(x), y))
+rc_valid_dataset = valid_dataset.map(lambda x, y: (resize_and_crop(x), y))
+
+print(rc_train_dataset)
+print(rc_valid_dataset)
+
 print(train_dataset.class_names)
 
 plt.figure(0)
