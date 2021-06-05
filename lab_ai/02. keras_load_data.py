@@ -20,6 +20,8 @@ valid_dataset = tf.keras.preprocessing.image_dataset_from_directory(
     batch_size=16
 )
 
+print(train_dataset.class_names)
+
 plt.figure(0)
 plt.title('train_dataset')
 for images, labels in train_dataset.take(1):
@@ -35,6 +37,7 @@ for images, labels in valid_dataset.take(1):
     for i in range(16):
         plt.subplot(4, 4, i + 1)
         plt.imshow(images[i].numpy().astype('uint8'))
-        plt.title(train_dataset.class_names[labels[i]])
+        plt.title(valid_dataset.class_names[labels[i]])
         plt.axis('off')
+
 plt.show()
