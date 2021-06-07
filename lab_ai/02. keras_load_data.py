@@ -26,7 +26,7 @@ resize_and_crop = tf.keras.Sequential([
 ])
 
 rc_train_dataset = train_dataset.map(lambda x, y: (resize_and_crop(x), y))
-rc_valid_dataset = valid_dataset.map(lambda x, y: (resize_and_crop(x), y))
+rc_valid_dataset = train_dataset.map(lambda x, y: (resize_and_crop(x), y))
 
 print(rc_train_dataset)
 print(rc_valid_dataset)
