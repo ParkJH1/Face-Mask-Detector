@@ -8,7 +8,7 @@ train_dataset = tf.keras.preprocessing.image_dataset_from_directory(
     subset='training',
     seed=123,
     image_size=(224, 224),
-    batch_size=16
+    batch_size=32
 )
 
 valid_dataset = tf.keras.preprocessing.image_dataset_from_directory(
@@ -17,7 +17,7 @@ valid_dataset = tf.keras.preprocessing.image_dataset_from_directory(
     subset='validation',
     seed=123,
     image_size=(224, 224),
-    batch_size=16
+    batch_size=32
 )
 
 resize_and_crop = tf.keras.Sequential([
