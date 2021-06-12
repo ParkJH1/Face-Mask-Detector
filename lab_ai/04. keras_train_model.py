@@ -8,7 +8,7 @@ train_dataset = tf.keras.preprocessing.image_dataset_from_directory(
     subset='training',
     seed=123,
     image_size=(224, 224),
-    batch_size=32
+    batch_size=16
 )
 
 valid_dataset = tf.keras.preprocessing.image_dataset_from_directory(
@@ -17,7 +17,7 @@ valid_dataset = tf.keras.preprocessing.image_dataset_from_directory(
     subset='validation',
     seed=123,
     image_size=(224, 224),
-    batch_size=32
+    batch_size=16
 )
 
 resize_and_crop = tf.keras.Sequential([
@@ -28,6 +28,7 @@ resize_and_crop = tf.keras.Sequential([
 rc_train_dataset = train_dataset.map(lambda x, y: (resize_and_crop(x), y))
 rc_valid_dataset = valid_dataset.map(lambda x, y: (resize_and_crop(x), y))
 
+# 모델 생성
 model = tf.keras.applications.MobileNet(
     input_shape=(224, 224, 3),
     include_top=False,
@@ -42,14 +43,15 @@ model = tf.keras.Sequential([
     tf.keras.layers.Dense(1)
 ])
 
-learning_rate = 0.0001
+print(model.summary())
+
+# 모델 학습
+learning_rate = 0.001
 model.compile(
     loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
     optimizer=tf.keras.optimizers.RMSprop(lr=learning_rate),
     metrics=['accuracy']
 )
-
-print(model.summary())
 
 history = model.fit(rc_train_dataset, epochs=2, validation_data=rc_valid_dataset)
 print(history)
