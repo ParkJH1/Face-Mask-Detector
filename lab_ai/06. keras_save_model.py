@@ -55,7 +55,7 @@ model.compile(
     metrics=['accuracy']
 )
 
-history = model.fit(rc_train_dataset, epochs=2, validation_data=rc_valid_dataset)
+history = model.fit(rc_train_dataset, epochs=1, validation_data=rc_valid_dataset)
 print(history)
 
 if not os.path.exists('../models'):
