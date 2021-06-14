@@ -22,6 +22,12 @@ face_mask_recognition_model = cv2.dnn.readNet('../models/face_mask_recognition.p
 mask_detector_model = tf.keras.models.load_model('../models/mymodel')
 
 cap = cv2.VideoCapture('../data/04.mp4')
+fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+
+if not os.path.exists('../outputs'):
+    os.mkdir('../outputs')
+
+out = None
 
 while cap.isOpened():
     ret, image = cap.read()
@@ -67,26 +73,13 @@ while cap.isOpened():
         cv2.putText(result_image, text=label, org=(left, top - 10), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.8,
                     color=color, thickness=2, lineType=cv2.LINE_AA)
 
-        # face_input = cv2.resize(face, dsize=(224, 224))
-        # face_input = cv2.cvtColor(face_input, cv2.COLOR_BGR2RGB)
-        # face_input = preprocess_input(face_input)
-        # face_input = np.expand_dims(face_input, axis=0)
-
-        # mask, nomask = model.predict(face_input).squeeze()
-        #
-        # if mask > nomask:
-        #     color = (0, 255, 0)
-        #     label = 'Mask %d%%' % (mask * 100)
-        # else:
-        #     color = (0, 0, 255)
-        #     label = 'No Mask %d%%' % (nomask * 100)
-        #
-        # cv2.rectangle(result_img, pt1=(x1, y1), pt2=(x2, y2), thickness=2, color=color, lineType=cv2.LINE_AA)
-        # cv2.putText(result_img, text=label, org=(x1, y1 - 10), fontFace=cv2.FONT_HERSHEY_SIMPLEX, fontScale=0.8,
-        #             color=color, thickness=2, lineType=cv2.LINE_AA)
-
+    if out is None:
+        out = cv2.VideoWriter('../outputs/output.mp4', fourcc, cap.get(cv2.CAP_PROP_FPS), (image.shape[1], image.shape[0]))
+    else:
+        out.write(result_image)
     cv2.imshow('result', result_image)
     if cv2.waitKey(1) == ord('q'):
         break
 
+out.release()
 cap.release()
