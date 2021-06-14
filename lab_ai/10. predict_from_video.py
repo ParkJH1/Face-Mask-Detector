@@ -6,6 +6,14 @@ import cv2
 import matplotlib.pyplot as plt
 import os
 
+# https://drive.google.com/file/d/1GpZWS7339vymqQwvmV2kZ4h5TgzT0Q7Z/view?usp=sharing
+#
+# https://drive.google.com/file/d/1zypxcMVbZE_KzTf5vbDQobbllZRgSwKs/view?usp=sharing
+#
+# https://drive.google.com/file/d/1MGkYVIr1vTLJr4YcV3tZ4bojP-PWYCll/view?usp=sharing
+#
+
+
 resize_and_crop = tf.keras.Sequential([
     tf.keras.layers.experimental.preprocessing.RandomCrop(height=224, width=224),
     tf.keras.layers.experimental.preprocessing.Rescaling(1./255)
