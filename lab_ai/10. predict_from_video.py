@@ -13,7 +13,6 @@ import os
 # https://drive.google.com/file/d/1MGkYVIr1vTLJr4YcV3tZ4bojP-PWYCll/view?usp=sharing
 #
 
-
 resize_and_crop = tf.keras.Sequential([
     tf.keras.layers.experimental.preprocessing.RandomCrop(height=224, width=224),
     tf.keras.layers.experimental.preprocessing.Rescaling(1./255)
