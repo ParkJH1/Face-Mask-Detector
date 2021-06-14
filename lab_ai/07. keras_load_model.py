@@ -31,6 +31,9 @@ rc_valid_dataset = valid_dataset.map(lambda x, y: (resize_and_crop(x), y))
 
 model = tf.keras.models.load_model('../models/mymodel')
 
+model.layers[0].trainable = False
+model.layers[2].trainable = True
+
 print(model.summary())
 
 epochs = 2
