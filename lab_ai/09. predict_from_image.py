@@ -12,7 +12,7 @@ resize_and_crop = tf.keras.Sequential([
 model = tf.keras.models.load_model('../models/mymodel')
 
 # face_image_path = '../data/without_mask/0.jpg'
-face_image_path = '../data/02.jpg'
+face_image_path = '../data/without_mask/0.jpg'
 
 face_image_np = face_recognition.load_image_file(face_image_path)
 face_locations = face_recognition.face_locations(face_image_np)
