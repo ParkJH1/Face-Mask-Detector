@@ -108,7 +108,7 @@ class FaceMaskDetector(QMainWindow):
 
     def load_video_finished(self):
         self.load_video_button.setText('영상 처리 완료')
-        self.media_player.setMedia(QMediaContent(QUrl.fromLocalFile('/Users/pjh/GitHub/Face Mask Detector/outputs/output.mp4')))
+        self.media_player.setMedia(QMediaContent(QUrl.fromLocalFile(QFileInfo('outputs/output.wmv').absoluteFilePath())))
         self.play_button.setEnabled(True)
 
     def play_video(self):
@@ -135,7 +135,6 @@ class FaceMaskDetector(QMainWindow):
         self.media_player.setPosition(position)
 
     def handle_error(self):
-        self.play_button.setEnabled(False)
         print("Error: " + self.media_player.errorString())
 
 
