@@ -76,7 +76,7 @@ while cap.isOpened():
                     color=color, thickness=2, lineType=cv2.LINE_AA)
 
     if out is None:
-        out = cv2.VideoWriter('../outputs/output.mp4', fourcc, cap.get(cv2.CAP_PROP_FPS), (image.shape[1], image.shape[0]))
+        out = cv2.VideoWriter('../outputs/output.wmv', fourcc, cap.get(cv2.CAP_PROP_FPS), (image.shape[1], image.shape[0]))
     else:
         out.write(result_image)
     cv2.imshow('result', result_image)
