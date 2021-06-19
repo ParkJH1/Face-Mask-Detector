@@ -17,7 +17,7 @@ face_mask_recognition_model = cv2.dnn.readNet(
 mask_detector_model = tf.keras.models.load_model('../models/mymodel')
 
 cap = cv2.VideoCapture('../data/04.mp4')
-fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'r')
+fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 
 if not os.path.exists('../outputs'):
     os.mkdir('../outputs')
