@@ -82,12 +82,18 @@ while cap.isOpened():
         )
 
     if out is None:
-        out = cv2.VideoWriter('../outputs/output.wmv', fourcc, cap.get(cv2.CAP_PROP_FPS), (image.shape[1], image.shape[0]))
+        out = cv2.VideoWriter(
+            '../outputs/output.mp4',
+            fourcc,
+            cap.get(cv2.CAP_PROP_FPS),
+            (image.shape[1], image.shape[0])
+        )
     else:
         out.write(result_image)
+
     cv2.imshow('result', result_image)
     if cv2.waitKey(1) == ord('q'):
         break
 
-out.release()
 cap.release()
+out.release()
