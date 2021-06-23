@@ -27,7 +27,6 @@ class LoadVideoWorker(QThread):
         self.video_path = video_path
 
     def run(self):
-        print(self.video_path)
         main.video_processing(self.video_path, True)
         self.finished.emit()
 
