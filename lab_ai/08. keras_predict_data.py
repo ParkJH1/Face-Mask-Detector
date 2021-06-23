@@ -1,4 +1,4 @@
-# 04. keras_train_model.py
+# 08. keras_predict_data.py
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import os
@@ -33,8 +33,8 @@ model = tf.keras.models.load_model('../models/mymodel')
 
 print(model.summary())
 
-plt.figure(1)
-plt.title('valid_dataset_predict')
+plt.figure(0)
+plt.title('Valid Dataset Predict')
 for images, labels in valid_dataset.take(1):
     rc_images = resize_and_crop(images)
     predict = model.predict(rc_images)
@@ -55,5 +55,3 @@ for images, labels in valid_dataset.take(1):
         plt.axis('off')
 
 plt.show()
-
-

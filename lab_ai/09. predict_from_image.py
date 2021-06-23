@@ -1,7 +1,7 @@
+# 09. predict_from_image.py
 import face_recognition
 from PIL import Image, ImageDraw
 import tensorflow as tf
-import matplotlib.pyplot as plt
 import numpy as np
 
 resize_and_crop = tf.keras.Sequential([
@@ -11,8 +11,7 @@ resize_and_crop = tf.keras.Sequential([
 
 model = tf.keras.models.load_model('../models/mymodel')
 
-# face_image_path = '../data/without_mask/0.jpg'
-face_image_path = '../data/without_mask/2.jpg'
+face_image_path = '../data/without_mask/0.jpg'
 
 face_image_np = face_recognition.load_image_file(face_image_path)
 face_locations = face_recognition.face_locations(face_image_np)
@@ -34,7 +33,8 @@ for face_location in face_locations:
         label = 'without_mask'
     else:
         label = 'with_mask'
-    draw.text((left, top - 10), label)
+        
     draw.rectangle(((left, top), (right, bottom)), outline=(255, 255, 0), width=4)
+    draw.text((left, top - 10), label)
 
 face_image.show()

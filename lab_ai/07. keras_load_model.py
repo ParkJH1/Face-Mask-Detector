@@ -1,4 +1,4 @@
-# 04. keras_train_model.py
+# 07. keras_load_model.py
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import os
@@ -29,6 +29,7 @@ resize_and_crop = tf.keras.Sequential([
 rc_train_dataset = train_dataset.map(lambda x, y: (resize_and_crop(x), y))
 rc_valid_dataset = valid_dataset.map(lambda x, y: (resize_and_crop(x), y))
 
+# 모델 생성
 model = tf.keras.models.load_model('../models/mymodel')
 
 model.layers[0].trainable = False

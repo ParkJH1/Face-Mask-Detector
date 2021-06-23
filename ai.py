@@ -5,7 +5,7 @@ import os
 
 resize_and_crop = tf.keras.Sequential([
     tf.keras.layers.experimental.preprocessing.RandomCrop(height=224, width=224),
-    tf.keras.layers.experimental.preprocessing.Rescaling(1. / 255)
+    tf.keras.layers.experimental.preprocessing.Rescaling(1./255)
 ])
 
 
@@ -30,17 +30,9 @@ def load_data():
     )
 
     rc_train_dataset = train_dataset.map(lambda x, y: (resize_and_crop(x), y))
-    rc_valid_dataset = train_dataset.map(lambda x, y: (resize_and_crop(x), y))
+    rc_valid_dataset = valid_dataset.map(lambda x, y: (resize_and_crop(x), y))
 
     return rc_train_dataset, rc_valid_dataset
-
-
-# 모델 학습
-def train_model(model, epochs, train_dataset, valid_dataset, save_model):
-    history = model.fit(train_dataset, epochs=epochs, validation_data=valid_dataset)
-    if save_model:
-        model.save('models/mymodel')
-    return history
 
 
 # 모델 생성
@@ -71,13 +63,21 @@ def create_model():
             optimizer=tf.keras.optimizers.RMSprop(lr=learning_rate),
             metrics=['accuracy']
         )
-
+        
         train_dataset, valid_dataset = load_data()
         train_model(model, 2, train_dataset, valid_dataset, True)
     return model
 
 
-# 모델 예측
+# 모델 학습
+def train_model(model, epochs, train_dataset, valid_dataset, save_model):
+    history = model.fit(train_dataset, epochs=epochs, validation_data=valid_dataset)
+    if save_model:
+        model.save('models/mymodel')
+    return history
+
+
+# 학습된 모델로 예측
 def predict(model, image):
     rc_image = resize_and_crop(np.array([image]))
     result = model.predict(rc_image)
@@ -89,5 +89,5 @@ def predict(model, image):
 
 if __name__ == '__main__':
     train_dataset, valid_dataset = load_data()
-    model = create_model(False)
+    model = create_model()
     train_model(model, 2, train_dataset, valid_dataset, True)

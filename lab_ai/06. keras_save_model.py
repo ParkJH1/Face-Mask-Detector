@@ -1,4 +1,4 @@
-# 04. keras_train_model.py
+# 06. keras_save_model.py
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import os
@@ -29,6 +29,7 @@ resize_and_crop = tf.keras.Sequential([
 rc_train_dataset = train_dataset.map(lambda x, y: (resize_and_crop(x), y))
 rc_valid_dataset = valid_dataset.map(lambda x, y: (resize_and_crop(x), y))
 
+# 모델 생성
 model = tf.keras.applications.MobileNet(
     input_shape=(224, 224, 3),
     include_top=False,
@@ -43,7 +44,10 @@ model = tf.keras.Sequential([
     tf.keras.layers.Dense(1)
 ])
 
-learning_rate = 0.0001
+print(model.summary())
+
+# 모델 학습
+learning_rate = 0.001
 model.compile(
     loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
     optimizer=tf.keras.optimizers.RMSprop(lr=learning_rate),
