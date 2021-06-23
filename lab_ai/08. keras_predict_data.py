@@ -1,6 +1,7 @@
 # 08. keras_predict_data.py
 import tensorflow as tf
 import matplotlib.pyplot as plt
+import os
 
 train_dataset = tf.keras.preprocessing.image_dataset_from_directory(
     '../data/',
@@ -30,6 +31,8 @@ rc_valid_dataset = valid_dataset.map(lambda x, y: (resize_and_crop(x), y))
 
 model = tf.keras.models.load_model('../models/mymodel')
 
+print(model.summary())
+
 plt.figure(0)
 plt.title('Valid Dataset Predict')
 for images, labels in valid_dataset.take(1):
@@ -39,16 +42,16 @@ for images, labels in valid_dataset.take(1):
         plt.subplot(4, 4, i + 1)
         plt.imshow(images[i].numpy().astype('uint8'))
         if predict[i][0] > 0.5:
-            predict_index = 1
+            label_index = 1
         else:
-            predict_index = 0
+            label_index = 0
 
-        if predict_index == labels[i]:
+        if labels[i] == label_index:
             result = 'OK'
         else:
             result = 'Wrong'
 
-        plt.title(valid_dataset.class_names[predict_index] + '\n' + result)
+        plt.title(valid_dataset.class_names[label_index] + '\n' + result)
         plt.axis('off')
 
 plt.show()

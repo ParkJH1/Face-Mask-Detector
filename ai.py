@@ -63,8 +63,10 @@ def create_model():
             optimizer=tf.keras.optimizers.RMSprop(lr=learning_rate),
             metrics=['accuracy']
         )
+        
+        train_dataset, valid_dataset = load_data()
+        train_model(model, 2, train_dataset, valid_dataset, True)
     return model
-
 
 
 # 모델 학습
@@ -88,4 +90,4 @@ def predict(model, image):
 if __name__ == '__main__':
     train_dataset, valid_dataset = load_data()
     model = create_model()
-    train_model(model, 2, train_dataset, valid_dataset, False)
+    train_model(model, 2, train_dataset, valid_dataset, True)

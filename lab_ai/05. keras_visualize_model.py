@@ -33,10 +33,10 @@ rc_valid_dataset = valid_dataset.map(lambda x, y: (resize_and_crop(x), y))
 model = tf.keras.applications.MobileNet(
     input_shape=(224, 224, 3),
     include_top=False,
-    # weights='imagenet'
+    weights='imagenet'
 )
 
-# model.trainable = False
+model.trainable = False
 
 model = tf.keras.Sequential([
     model,
@@ -52,17 +52,23 @@ if not os.path.exists('../logs'):
 
 tensorboard = tf.keras.callbacks.TensorBoard(log_dir='../logs')
 
-learning_rate = 0.001
+learning_rate = 0.0001
+
 model.compile(
     loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
     optimizer=tf.keras.optimizers.RMSprop(lr=learning_rate),
     metrics=['accuracy']
 )
 
+epochs = 2
 history = model.fit(
     rc_train_dataset,
-    epochs=2,
+    epochs=epochs,
     validation_data=rc_valid_dataset,
     callbacks=[tensorboard]
 )
 print(history)
+
+# Anaconda Prompt 에서 face-mask-detector-env 환경 활성화 시킨 후
+# Face Mask Detector 프로젝트 최상위 폴더로 이동한 상태에서
+# tensorboard --logdir=./logs

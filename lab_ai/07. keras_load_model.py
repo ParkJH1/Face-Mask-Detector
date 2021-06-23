@@ -1,6 +1,7 @@
 # 07. keras_load_model.py
 import tensorflow as tf
 import matplotlib.pyplot as plt
+import os
 
 train_dataset = tf.keras.preprocessing.image_dataset_from_directory(
     '../data/',
@@ -36,5 +37,10 @@ model.layers[2].trainable = True
 
 print(model.summary())
 
-history = model.fit(rc_train_dataset, epochs=2, validation_data=rc_valid_dataset)
+epochs = 2
+history = model.fit(
+    rc_train_dataset,
+    epochs=epochs,
+    validation_data=rc_valid_dataset
+)
 print(history)

@@ -33,6 +33,7 @@ for face_location in face_locations:
         label = 'without_mask'
     else:
         label = 'with_mask'
+        
     draw.rectangle(((left, top), (right, bottom)), outline=(255, 255, 0), width=4)
     draw.text((left, top - 10), label)
 

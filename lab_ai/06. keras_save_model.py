@@ -1,5 +1,4 @@
 # 06. keras_save_model.py
-# 04. keras_train_model.py
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import os
@@ -55,7 +54,14 @@ model.compile(
     metrics=['accuracy']
 )
 
-history = model.fit(rc_train_dataset, epochs=1, validation_data=rc_valid_dataset)
+print(model.summary())
+
+epochs = 2
+history = model.fit(
+    rc_train_dataset,
+    epochs=epochs,
+    validation_data=rc_valid_dataset
+)
 print(history)
 
 if not os.path.exists('../models'):
