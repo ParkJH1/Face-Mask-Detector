@@ -77,7 +77,7 @@ def train_model(model, epochs, train_dataset, valid_dataset, save_model):
 
 # 학습된 모델로 예측
 def predict(model, image):
-    rc_image = resize_and_crop(image)
+    rc_image = resize_and_crop(np.array([image]))
     result = model.predict(rc_image)
     if result[0] > 0.5:
         return 1
