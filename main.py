@@ -77,7 +77,7 @@ def video_processing(video_path, background):
 
         if out is None:
             out = cv2.VideoWriter(
-                'outputs/output.mp4',
+                'outputs/output.wmv',
                 fourcc,
                 cap.get(cv2.CAP_PROP_FPS),
                 (image.shape[1], image.shape[0])
